@@ -9,9 +9,15 @@ This is a GitHub Pages copy of the ResumeAI frontend. It keeps the visible URL o
 
 - `index.html` loads the built React app from `assets/`.
 - The bundle's Base44 SDK is configured with the original app's server URL and app id.
-- An inline shim strips the `/resume-ai` path prefix for the router, re-prefixes internal
-  navigation, and sends `/api/...` calls to Base44.
+- The router uses `/resume-ai` as its basename, so links stay under the Pages path.
+- An inline shim restores deep links from `404.html` and sends `/api/...` calls to Base44.
 - `404.html` sends deep links back through `index.html` so client-side routing works.
+
+## Verified
+
+Landing page, `/interviews` (40 questions / 37 companies), company and practice pages,
+`/pricing`, direct deep links, and the login flow all load on the `github.io` URL without
+redirecting to `base44.app`.
 
 ## Limitations
 
