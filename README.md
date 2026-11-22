@@ -1,24 +1,21 @@
-# ResumeAI — live link
+# ResumeAI — GitHub-hosted frontend
 
-GitHub Pages entry point for the ResumeAI app hosted at
-<https://resume-ai-copy-2dde0a01.base44.app>.
+Live at **https://preetamggoudar.github.io/resume-ai/**
 
-Visiting `https://preetamggoudar.github.io/resume-ai/` (or any path under it, e.g.
-`/builder`, `/analyzer`, `/pricing`) redirects to the same path on the Base44 app.
+This is a GitHub Pages copy of the ResumeAI frontend. It keeps the visible URL on
+`github.io` while Base44 continues to provide auth, data, AI and file storage.
 
-This is a redirect, not a copy of the app: Base44 owns the app code, backend, auth and AI
-features. To host the app itself here, export the Base44 source and replace these files
-with the built frontend.
+## How it works
 
-## Custom domain
+- `index.html` loads the built React app from `assets/`.
+- The bundle's Base44 SDK is configured with the original app's server URL and app id.
+- An inline shim strips the `/resume-ai` path prefix for the router, re-prefixes internal
+  navigation, and sends `/api/...` calls to Base44.
+- `404.html` sends deep links back through `index.html` so client-side routing works.
 
-No custom domain is configured. A `resumeaiapp.com` setup was attempted and reverted
-because that domain was never purchased; GitHub was redirecting the working GitHub Pages
-URL to the dead domain.
+## Limitations
 
-To try again later: buy the domain, add the standard GitHub Pages `A`/`CNAME` records,
-add a `CNAME` file with the domain to this repo, and set it under Settings → Pages.
-
-Note: this page redirects to the Base44-hosted app, so the address bar will show the
-Base44 URL after loading. Keeping your own URL visible requires connecting the domain
-directly in Base44 (paid Starter plan) instead.
+- This is a build mirror, not the original source. It won't update automatically when the
+  Base44 app changes — re-export/rebuild to sync.
+- Login, AI features and data still run on Base44. Only the frontend is hosted here.
+- To move everything off Base44 requires the real source code and a replacement backend.
