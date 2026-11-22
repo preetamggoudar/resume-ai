@@ -7,34 +7,17 @@
   <script>
   (function () {
     var ORIGIN = 'https://resume-ai-copy-2dde0a01.base44.app';
-    var PREFIX = '/resume-ai';
     try { localStorage.setItem('base44_app_base_url', ORIGIN); } catch (e) {}
-
-    var requested = new URLSearchParams(location.search).get('__p');
-    var path = requested || location.pathname;
-    if (path.indexOf(PREFIX) === 0) path = path.slice(PREFIX.length) || '/';
-    if (location.pathname !== path) {
-      var q = new URLSearchParams(location.search);
+    var q = new URLSearchParams(location.search);
+    var requested = q.get('__p');
+    if (requested) {
       q.delete('__p');
-      history.replaceState(null, '', path + (q.toString() ? '?' + q.toString() : '') + location.hash);
+      history.replaceState(null, '', requested + (q.toString() ? '?' + q.toString() : '') + location.hash);
     }
-
-    var push = history.pushState.bind(history);
-    var replace = history.replaceState.bind(history);
-    function prefixed(u) {
-      if (typeof u !== 'string' || u.charAt(0) !== '/') return u;
-      if (u.indexOf(PREFIX + '/') === 0 || u === PREFIX) return u;
-      return PREFIX + u;
-    }
-    history.pushState = function (a, b, u) { return push(a, b, prefixed(u)); };
-    history.replaceState = function (a, b, u) { return replace(a, b, prefixed(u)); };
-
     var of = window.fetch.bind(window);
     window.fetch = function (input, init) {
       var u = typeof input === 'string' ? input : (input && input.url) || input;
-      if (typeof u === 'string' && u.indexOf('/api/') === 0) {
-        input = ORIGIN + u;
-      }
+      if (typeof u === 'string' && u.indexOf('/api/') === 0) input = ORIGIN + u;
       return of(input, init);
     };
     var open = XMLHttpRequest.prototype.open;
