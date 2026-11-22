@@ -1,6 +1,6 @@
-# ResumeAI — GitHub-hosted frontend
+# ResumeAI — old URL (redirect only)
 
-Live at **https://preetamggoudar.github.io/resume-ai/**
+This repository now only redirects to the live site at **https://resumeaiapp.github.io/**.
 
 This is a GitHub Pages copy of the ResumeAI frontend. It keeps the visible URL on
 `github.io` while Base44 continues to provide auth, data, AI and file storage.
